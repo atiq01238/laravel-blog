@@ -26,8 +26,12 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
+                @if ($errors->has('default'))
+                <div class="alert alert-danger">{{ $errors->first('default') }}</div>
 
-                <form action="{{ Route('auth.login') }}" method="get">
+
+                @endif
+                <form action="{{ url('login') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
@@ -41,7 +45,7 @@
                     <span class="text-danger">{{ $errors->first('email') }}</span>
                     @endif
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('name') }}">
+                        <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password') }}">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

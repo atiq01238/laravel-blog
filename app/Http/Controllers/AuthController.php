@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserMail;
+use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     /**
@@ -25,6 +28,7 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -34,6 +38,8 @@ class AuthController extends Controller
         ]);
 
         User::create($request->all());
+        $detail=$request->all();
+        Mail::to('mirzaatiq450@gmail.com')->send(new UserMail($detail));
         return redirect()->route('auth.login',);
 
     }
@@ -49,6 +55,23 @@ class AuthController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    public function login(Request $request)
+    {
+
+        $request->validate([
+            'email'=>'required',
+            'password'=>'required'
+        ]);
+        // login start
+        if(Auth::attempt($request->only('email','password')))
+        {
+            return redirect('/');
+        }
+        return redirect('login')->withErrors(['default'=>'Invalid Login Detail']);
+
+
+
+    }
     public function edit(string $id)
     {
         //

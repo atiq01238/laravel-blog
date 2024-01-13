@@ -18,8 +18,9 @@ Route::get('/', function () {
 });
 Route::get('login', function () {
     return view('auth.login');
-})->name('auth.login');
+});
 Route::get('signup', function () {
     return view('auth.signup');
 });
 Route::post('signup', [AuthController::class,'store'])->name('auth.signup');
+Route::post('login',[AuthController::class,'login'])->name('auth.login');
