@@ -47,18 +47,18 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                          <a href="{{ url('Allcategorie') }}" class="nav-link active">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>All Categories </p>
-                          </a>
+                            <a href="{{ url('Allcategorie') }}" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Categories </p>
+                            </a>
                         </li>
                         <li class="nav-item">
-                          <a href="{{ url('Categories') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Categorie </p>
-                          </a>
+                            <a href="{{ url('Categories') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Category </p>
+                            </a>
                         </li>
-                      </ul>
+                    </ul>
                 <li>
             </ul>
         </nav>
