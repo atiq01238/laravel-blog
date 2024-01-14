@@ -24,3 +24,7 @@ Route::get('signup', function () {
 });
 Route::post('signup', [AuthController::class,'store'])->name('auth.signup');
 Route::post('login',[AuthController::class,'login'])->name('auth.login');
+
+Route::post('logout',[AuthController::class,'logout'])->name('logout');
+
+

@@ -68,9 +68,12 @@ class AuthController extends Controller
             return redirect('/');
         }
         return redirect('login')->withErrors(['default'=>'Invalid Login Detail']);
-
-
-
+    }
+    public function logout()
+    {
+        Auth::logout();
+        session()->flush();
+        return redirect('login');
     }
     public function edit(string $id)
     {

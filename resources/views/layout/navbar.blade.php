@@ -133,4 +133,8 @@
         </a>
       </li>
     </ul>
+    <form action="{{ url('logout') }}" method="post">
+        @csrf
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
   </nav>
