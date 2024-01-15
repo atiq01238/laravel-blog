@@ -41,33 +41,30 @@
                         <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Image</th>
+                                <th>ID</th>
                                 <th>Category Name</th>
-                                <th>Category Slug</th>
-                                <th>Date</th>
-                                <th>Status</th>
+                                <th>Image</th>
+                                <th>Create_at</th>
+                                <th>Updated_at</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            @foreach ($category as $item)
                                 <tr class="">
+                                    <td>{{ $item['id'] }}</td>
+                                    <td>{{ $item['name'] }}</td>
                                     <td>
-
-
+                                        <img src="{{asset('categories/'.$item->image)}}"
+                                        class="rounded-circle" width="50px" height="50px" alt="">
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $item['created_at'] }}</td>
+                                    <td>{{ $item['updated_at'] }}</td>
                                     <td>
-                                        <button class="btn btn-danger delete_btn" value="">Delete</button>
                                         <a href="" class="btn btn-info">Edit</a>
                                     </td>
                                 </tr>
-                                <tr >
-                                    <td colspan="6" style="text-align: center;">No Data Found</td>
-                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
