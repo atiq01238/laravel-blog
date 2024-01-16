@@ -35,15 +35,16 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Create Category</h3>
+                            <h3 class="card-title">Edit Category</h3>
                         </div>
-                        <form action="{{ Route('categories.store') }}" method="post"  enctype="multipart/form-data">
+                        <form action="{{ route('categories.update', ['category' => $categories->id]) }}" method="post" enctype="multipart/form-data">
                             @csrf
+                            @method('put')
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="CategoryName">Category Name</label>
                                     <input type="text" name="name" class="form-control" id="CategoryName"
-                                        placeholder="Category Name" value="{{ old('name') }}">
+                                        placeholder="Category Name" value="{{ old('name', $categories->name) }}">
                                 </div>
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -53,7 +54,7 @@
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" name="image" class="custom-file-input"
-                                                id="exampleInputFile" value="{{ old('image') }}">
+                                                id="exampleInputFile" value="{{ old('image', $categories->image) }}">
                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                         </div>
                                         @if ($errors->has('image'))
@@ -63,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Updated</button>
                             </div>
                         </form>
                     </div>
@@ -83,3 +84,4 @@
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+

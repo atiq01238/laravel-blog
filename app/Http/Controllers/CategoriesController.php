@@ -33,10 +33,17 @@ class CategoriesController extends Controller
         $request->validate([
 
             'name'=>'required',
-            'image'=>'required'
+            'image'=>'required|mimes:jpeg,jpg,png,gif|max:10000'
         ]);
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('categories'),$imageName);
 
-        Categories::create($request->all());
+        // Categories::create($request->all());
+        $categories=new Categories;
+        $categories->image=$imageName;
+        $categories->name=$request->name;
+        $categories->save();
+        // dd($request->all());
         return redirect()->route('categories.index')->withSuccess('Category Inserted Successfully');
     }
 
@@ -53,7 +60,8 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories=Categories::where('id',$id)->first();
+        return view('categories.edit',['categories'=>$categories]);
     }
 
     /**
@@ -61,7 +69,23 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+
+            'name'=>'required',
+            'image'=>'nullable|mimes:jpeg,jpg,png,gif|max:10000',
+        ]);
+
+        $categories=Categories::where('id',$id)->first();
+        if($request->hasFile('image'))
+        {
+            $imageName=time().'.'.$request->image->extension();
+            $request->image->move(public_path('categories'),$imageName);
+        }
+        $categories->image = $imageName;
+        $categories->name = $request->name;
+        $categories->save();
+
+        return redirect()->route('categories.index')->withSuccess('Category Inserted Successfully');
     }
 
     /**
@@ -69,6 +93,8 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category=Categories::where('id',$id)->first();
+        $category->delete();
+        return back()->withDelete('Category Deleted Successfully');
     }
 }

@@ -33,42 +33,62 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">All Categories</h3>
-                    </div>
-                    <!-- ./card-header -->
-                    <div class="card-body">
-                        <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Category Name</th>
-                                <th>Image</th>
-                                <th>Create_at</th>
-                                <th>Updated_at</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($category as $item)
-                                <tr class="">
-                                    <td>{{ $item['id'] }}</td>
-                                    <td>{{ $item['name'] }}</td>
-                                    <td>
-                                        <img src="{{asset('categories/'.$item->image)}}"
-                                        class="rounded-circle" width="50px" height="50px" alt="">
-                                    </td>
-                                    <td>{{ $item['created_at'] }}</td>
-                                    <td>{{ $item['updated_at'] }}</td>
-                                    <td>
-                                        <a href="" class="btn btn-info">Edit</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-        </div><!-- /.container-fluid -->
+                        <div class="card-header">
+                            <h3 class="card-title">All Categories</h3>
+                        </div>
+                        <!-- ./card-header -->
+                        <div class="card-body">
+                            @if ($messege = Session::get('success'))
+                                <div class="alert alert-success alert-block">
+                                    <strong>{{ $messege }}</strong>
+                                </div>
+                            @endif
+                            {{-- Delete category --}}
+                            @if ($messege = Session::get('delete'))
+                                <div class="alert alert-danger alert-block">
+                                    <strong>{{ $messege }}</strong>
+                                </div>
+                            @endif
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Category Name</th>
+                                        <th>Image</th>
+                                        <th>Create_at</th>
+                                        <th>Updated_at</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($category as $item)
+                                        <tr class="">
+                                            <td>{{ $item['id'] }}</td>
+                                            <td>{{ $item['name'] }}</td>
+                                            <td>
+                                                <img src="{{ asset('categories/' . $item->image) }}"
+                                                    class="rounded-circle" width="50px" height="50px" alt="">
+                                            </td>
+                                            <td>{{ $item['created_at'] }}</td>
+                                            <td>{{ $item['updated_at'] }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="{{ Route('categories.edit', $item->id) }}"
+                                                        class="btn btn-info">Edit</a>
+                                                    <form action="{{ route('categories.destroy', $item->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>

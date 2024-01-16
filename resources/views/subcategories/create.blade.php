@@ -37,7 +37,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Create Category</h3>
                         </div>
-                        <form action="{{ Route('categories.store') }}" method="post"  enctype="multipart/form-data">
+                        <form action="{{ Route('subcategories.store') }}" method="post">
                             @csrf
                             <div class="card-body">
                                 <div class="mb-3">

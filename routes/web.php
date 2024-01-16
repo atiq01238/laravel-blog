@@ -37,3 +37,4 @@ Route::get('category', function () {
 Route::resource('categories', CategoriesController::class);
 
 
+
