@@ -33,16 +33,16 @@
     <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
   </div>
 
-  <!-- Navbar -->
-  @include('layout.navbar')
-  <!-- /.navbar -->
+  @include('layout.header')
 
   <!-- Main Sidebar Container -->
   @include('layout.sidebar')
 
   <!-- Content Wrapper. Contains page content -->
-  @include('layout.header')
+
   <!-- /.content-wrapper -->
+  @yield('content')
+
   @include('layout.footer')
 
   <!-- Control Sidebar -->

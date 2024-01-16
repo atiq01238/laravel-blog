@@ -1,14 +1,7 @@
-@include('layout.asset')
-
-<!-- Navbar -->
-@include('layout.navbar')
-<!-- /.navbar -->
-
-<!-- Main Sidebar Container -->
-@include('layout.sidebar')
-
+@extends('layout.master')
 
 <!-- Content Wrapper. Contains page content -->
+@section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -37,7 +30,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Create Category</h3>
                         </div>
-                        <form action="{{ Route('subcategories.store') }}" method="post">
+                        <form action="" method="post">
                             @csrf
                             <div class="card-body">
                                 <div class="mb-3">
@@ -72,14 +65,5 @@
     </section>
     <!-- /.content -->
 </div>
+@stop
 
-<!-- /.content-wrapper -->
-@include('layout.footer')
-
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-</aside>
-<!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->

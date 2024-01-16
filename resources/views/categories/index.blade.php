@@ -1,13 +1,6 @@
-@include('layout.asset')
-<!-- Navbar -->
-@include('layout.navbar')
-<!-- /.navbar -->
-
-<!-- Main Sidebar Container -->
-@include('layout.sidebar')
-
-
+@extends('layout.master')
 <!-- Content Wrapper. Contains page content -->
+@section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -92,15 +85,7 @@
     </section>
     <!-- /.content -->
 </div>
+@stop
 
 
-<!-- /.content-wrapper -->
-@include('layout.footer')
 
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-</aside>
-<!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
