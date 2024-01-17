@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subcategories', function (Blueprint $table) {
+        Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image');
+            $table->unsignedBigInteger('category_id'); // Use the appropriate data type for the 'id' column in the 'categories' table
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->string('image'); // Add this line to create the 'image' column
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subcategories');
+        Schema::dropIfExists('sub_categories');
     }
 };

@@ -53,7 +53,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('category') }}" class="nav-link">
+                            <a href="{{ Route('categories.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create Category </p>
                             </a>
@@ -83,7 +83,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('subcategory') }}" class="nav-link">
+                            <a href="{{ Route('subcategories.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create Category </p>
                             </a>

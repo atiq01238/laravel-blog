@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\SubCategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,5 @@ Route::get('signup', function () {    return view('auth.signup'); });
 Route::post('signup', [AuthController::class,'store'])->name('auth.signup');
 Route::post('login',[AuthController::class,'login'])->name('auth.login');
 Route::post('logout',[AuthController::class,'logout'])->name('logout');
-Route::get('categories', function () {    return view('categories.index'); });
-Route::get('category', function () {    return view('categories.create'); });
 Route::resource('categories', CategoriesController::class);
-Route::get('subcategories', function () {    return view('subcategories.index'); });
-Route::get('subcategory', function () {    return view('subcategories.create'); });
+Route::resource('subcategories', SubCategoriesController::class);
