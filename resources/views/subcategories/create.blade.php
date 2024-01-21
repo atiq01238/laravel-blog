@@ -44,9 +44,9 @@
                                     <div class="form-group">
                                         <label for="CategoryName">Select Category</label>
                                         <select class="form-control" name="category_id" value="{{ old('category_id') }}">
-                                            <option selected>Open this select menu</option>
+                                            <option selected disabled>Select Category</option>
                                             @foreach ($category as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id ?? '' }}">{{ $item->name ?? '' }}</option>
                                             @endforeach
                                         </select>
                                     </div>

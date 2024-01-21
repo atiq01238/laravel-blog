@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('category_id'); // Use the appropriate data type for the 'id' column in the 'categories' table
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->string('image'); // Add this line to create the 'image' column
+            $table->string('image');
+            $table->integer('category_id');
             $table->timestamps();
         });
     }

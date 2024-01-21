@@ -13,8 +13,8 @@ class SubCategoriesController extends Controller
      */
     public function index()
     {
-        $subcategory=SubCategory::paginate(10);
-        return view('subcategories.index',compact('subcategory'));
+        $subcategories= SubCategory::with('categories')->get();
+        return view('subcategories.index',compact('subcategories'));
     }
 
     /**
@@ -73,23 +73,23 @@ class SubCategoriesController extends Controller
      */
     public function update(Request $request, string $id)
 {
+
     $request->validate([
         'name' => 'required',
         'category_id' => 'required',
         'image' => 'nullable|mimes:jpeg,jpg,png,gif|max:10000',
     ]);
 
-    $subcategory = SubCategory::where('id', $id)->first();
-
+    $subcategory = SubCategory::find($id);
     if ($request->hasFile('image')) {
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('categories'), $imageName);
-        $subcategories->image = $imageName;
+        $subcategory->image = $imageName;
     }
 
-    $subcategories->name = $request->name;
-    $subcategories->category_id = $request->category_id;
-    $subcategories->save();
+    $subcategory->name = $request->name;
+    $subcategory->category_id = $request->category_id;
+    $subcategory->save();
 
     return redirect()->route('subcategories.index')->withSuccess('Sub Category Updated Successfully');
 }

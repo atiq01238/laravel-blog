@@ -58,21 +58,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($subcategory as $item)
+                                        @foreach ($subcategories as $subcategory)
                                             <tr class="">
-                                                <td>{{ $item['name'] }}</td>
-                                                <td>{{ $item['category_id'] }}</td>
+                                                <td>{{ $subcategory['name'] }}</td>
+                                                <td>{{$subcategory->categories->name ?? '' }}</td>
                                                 <td>
-                                                    <img src="{{ asset('subcategories/' . $item->image) }}"
+                                                    <img src="{{ asset('subcategories/' . $subcategory->image) }}"
                                                         class="rounded-circle" width="50px" height="50px" alt="">
                                                 </td>
-                                                <td>{{ $item['created_at'] }}</td>
-                                                <td>{{ $item['updated_at'] }}</td>
+                                                <td>{{ $subcategory['created_at'] }}</td>
+                                                <td>{{ $subcategory['updated_at'] }}</td>
                                                 <td>
                                                     <div class="btn-group" role="group">
-                                                        <a href="{{ Route('subcategories.edit', $item->id) }}"
+                                                        <a href="{{ Route('subcategories.edit', $subcategory->id) }}"
                                                             class="btn btn-info mr-2">Edit</a>
-                                                        <form action="{{ Route('subcategories.destroy', $item->id) }}"
+                                                        <form action="{{ Route('subcategories.destroy', $subcategory->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

@@ -57,21 +57,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($category as $item)
+                                        @foreach ($categories as $category)
                                             <tr class="">
-                                                <td>{{ $item['id'] }}</td>
-                                                <td>{{ $item['name'] }}</td>
+                                                <td>{{ $category['id'] }}</td>
+                                                <td>{{ $category['name'] }}</td>
                                                 <td>
-                                                    <img src="{{ asset('categories/' . $item->image) }}"
+                                                    <img src="{{ asset('categories/' . $category->image) }}"
                                                         class="rounded-circle" width="50px" height="50px" alt="">
                                                 </td>
-                                                <td>{{ $item['created_at'] }}</td>
-                                                <td>{{ $item['updated_at'] }}</td>
+                                                <td>{{ $category['created_at'] }}</td>
+                                                <td>{{ $category['updated_at'] }}</td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a href="{{ Route('categories.edit', $item->id) }}"
+                                                        <a href="{{ Route('categories.edit', $category->id) }}"
                                                             class="btn btn-info">Edit</a>
-                                                        <form action="{{ route('categories.destroy', $item->id) }}"
+                                                        <form action="{{ route('categories.destroy', $category->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
