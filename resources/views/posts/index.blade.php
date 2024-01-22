@@ -1,5 +1,4 @@
 @extends('layout.master')
-<!-- Content Wrapper. Contains page content -->
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -27,10 +26,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">All Categories</h3>
+                                <h3 class="card-title">All Posts</h3>
                             </div>
                             <div class="btn-group">
-                                <a href="{{ Route('categories.create') }}" class="btn btn-info">Add Categories</a>
+                                <a href="{{ Route('posts.create') }}" class="btn btn-info">Add Post</a>
                             </div>
                             <!-- ./card-header -->
                             <div class="card-body">
@@ -38,30 +37,27 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Category Name</th>
-                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Detail</th>
                                             <th>Create_at</th>
                                             <th>Updated_at</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($categories as $category)
-                                            <tr class="">
-                                                <td>{{ $category['id'] }}</td>
-                                                <td>{{ $category['name'] }}</td>
-                                                <td>
-                                                    <img src="{{ asset('categories/' . $category->image) }}"
-                                                        class="rounded-circle" width="50px" height="50px" alt="">
-                                                </td>
-                                                <td>{{ $category['created_at'] }}</td>
-                                                <td>{{ $category['updated_at'] }}</td>
+                                        @foreach ($posts as $post)
+                                        <tr class="">
+                                                <td>{{ $post['id'] }}</td>
+                                                <td>{{ $post['name'] }}</td>
+                                                <td>{{ $post['detail'] }}</td>
+                                                <td>{{ $post['created_at'] }}</td>
+                                                <td>{{ $post['updated_at'] }}</td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a href="{{ Route('categories.edit', $category->id) }}"
+                                                        <a href="{{ Route('posts.edit', $post->id) }}"
                                                             class="btn btn-info">Edit</a>
-                                                        <form action="{{ route('categories.destroy', $category->id) }}"
+                                                        <form action="{{ route('posts.destroy', $post->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
