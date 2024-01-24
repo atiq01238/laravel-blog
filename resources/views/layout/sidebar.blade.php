@@ -39,15 +39,16 @@
                with font-awesome or any other icon font library -->
                 <li class="nav-item ">
                     <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-copy"></i>
                         <p>
                             Category
-                            <i class="right fas fa-angle-left"></i>
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right"></span>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('categories') }}" class="nav-link active">
+                            <a href="{{ url('categories') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Categories </p>
                             </a>
@@ -77,7 +78,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('subcategories') }}" class="nav-link active">
+                            <a href="{{ url('subcategories') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Categories </p>
                             </a>
@@ -107,7 +108,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('posts') }}" class="nav-link active">
+                            <a href="{{ url('posts') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Posts </p>
                             </a>

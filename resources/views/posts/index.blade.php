@@ -37,6 +37,7 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Detail</th>
@@ -50,6 +51,7 @@
                                         <tr class="">
                                                 <td>{{ $post['id'] }}</td>
                                                 <td>{{ $post['name'] }}</td>
+                                                <td>{{ $post['email'] }}</td>
                                                 <td>{{ $post['detail'] }}</td>
                                                 <td>{{ $post['created_at'] }}</td>
                                                 <td>{{ $post['updated_at'] }}</td>

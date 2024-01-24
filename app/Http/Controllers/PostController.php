@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Categories;
+use App\Models\SubCategory;
 
 class PostController extends Controller
 {
@@ -21,7 +23,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Categories::all();
+        $subcategories = SubCategory::all();
+        return view('posts.create', compact('categories', 'subcategories'));
+
     }
 
     /**
@@ -30,9 +35,11 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'category_id'=>'required',
+            'subcategory_name'=>'required',
             'name'=>'required',
-            'email'=>'required',
-            'detail'=>'required'
+            'sdetail'=>'required',
+            'ldetail'=>'required'
         ]);
         // dd($request->all());
         $post = new Post;
