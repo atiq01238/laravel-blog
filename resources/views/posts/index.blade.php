@@ -38,11 +38,14 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Detail</th>
-                                            <th>Create_at</th>
-                                            <th>Updated_at</th>
+                                            <th>Category Name</th>
+                                            <th>SubCategory Name</th>
+                                            <th>Post Name</th>
+                                            <th>Short_Detail</th>
+                                            <th>Long_Detail</th>
+                                            <th>Auther Name</th>
+                                            <th>Image</th>
+
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -50,11 +53,17 @@
                                         @foreach ($posts as $post)
                                         <tr class="">
                                                 <td>{{ $post['id'] }}</td>
-                                                <td>{{ $post['name'] }}</td>
-                                                <td>{{ $post['email'] }}</td>
-                                                <td>{{ $post['detail'] }}</td>
-                                                <td>{{ $post['created_at'] }}</td>
-                                                <td>{{ $post['updated_at'] }}</td>
+                                                <td>{{ $post['category_name'] }}</td>
+                                                <td>{{ $post['subcategory_name'] }}</td>
+                                                <td>{{ $post['post_name'] }}</td>
+                                                <td>{{ $post['s_detail'] }}</td>
+                                                <td>{{ $post['l_detail'] }}</td>
+                                                <td>{{ $post['a_name'] }}</td>
+                                                <td>
+                                                    <img src="{{ asset('uploads' . $post->image) }}"
+                                                        class="rounded-circle" width="50px" height="50px" alt="">
+                                                </td>
+
                                                 <td>
                                                     <div class="btn-group">
                                                         <a href="{{ Route('posts.edit', $post->id) }}"

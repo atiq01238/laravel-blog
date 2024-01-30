@@ -27,4 +27,5 @@ Route::post('logout',[AuthController::class,'logout'])->name('logout');
 Route::resource('categories', CategoriesController::class);
 Route::resource('subcategories', SubCategoriesController::class);
 Route::resource('posts', PostController::class);
+Route::post('/processForm', 'YourController@processForm')->name('processForm');
 

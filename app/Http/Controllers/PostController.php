@@ -25,8 +25,11 @@ class PostController extends Controller
     {
         $categories = Categories::all();
         $subcategories = SubCategory::all();
-        return view('posts.create', compact('categories', 'subcategories'));
 
+        // Retrieve selected category from the form submission
+        $selectedCategory = request()->input('category_id');
+
+        return view('posts.create', compact('categories', 'subcategories', 'selectedCategory'));
     }
 
     /**
@@ -34,20 +37,42 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'category_id'=>'required',
-            'subcategory_name'=>'required',
-            'name'=>'required',
-            'sdetail'=>'required',
-            'ldetail'=>'required'
-        ]);
-        // dd($request->all());
-        $post = new Post;
-        $post->name = $request->input('name');
-        $post->email = $request->input('email');
-        $post->detail = $request->input('detail');
-        $post->save();
-        return redirect()->route('posts.index')->withSuccess('Data Inserted Successfully');
+            // Validate the request data
+            $request->validate([
+                'category_name' => 'required',
+                'subcategory_name' => 'required',
+                'post_name' => 'required',
+                's_detail' => 'required',
+                'l_detail' => 'required',
+                'a_name' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            // Create a new Post instance
+            $post = new Post;
+
+            // Set values for non-file fields
+            $post->category_name = $request->input('category_name');
+            $post->subcategory_name = $request->input('subcategory_name');
+            $post->post_name = $request->input('post_name');
+            $post->s_detail = $request->input('s_detail');
+            $post->l_detail = $request->input('l_detail');
+            $post->a_name = $request->input('a_name');
+
+            // Handle file upload
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('uploads'), $imageName);
+                $post->image = 'uploads/'.$imageName;
+            }
+
+            // Save the Post
+            $post->save();
+
+            // Redirect back with a success message or handle as needed
+            return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+
     }
 
     /**
@@ -63,8 +88,11 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        $post = Post::where('id', $id)->first();
-       return view('posts.edit', ['post'=>$post]);
+
+        $categories = Categories::all();
+        $subcategories = SubCategory::all();
+        $posts = Post::findOrFail($id);
+        return view('posts.edit', compact('posts', 'categories', 'subcategories'));
     }
 
     /**
@@ -73,18 +101,37 @@ class PostController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name'=>'required',
-            'email'=>'required',
-            'detail'=>'required'
+            'category_name' => 'required',
+            'subcategory_name' => 'required',
+            'post_name' => 'required',
+            's_detail' => 'required',
+            'l_detail' => 'required',
+            'a_name' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        // dd($request->all());
-        $post = Post::where('id', $id)->first();
 
-        $post->name = $request->input('name');
-        $post->email = $request->input('email');
-        $post->detail = $request->input('detail');
-        $post->save();
+        // dd($request->all());
+        $post = Post::findOrFail($id);
+
+        $post->category_name = $request->input('category_name');
+            $post->subcategory_name = $request->input('subcategory_name');
+            $post->post_name = $request->input('post_name');
+            $post->s_detail = $request->input('s_detail');
+            $post->l_detail = $request->input('l_detail');
+            $post->a_name = $request->input('a_name');
+
+            // Handle file upload
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('uploads'), $imageName);
+                $post->image = 'uploads/'.$imageName;
+            }
+
+            // Save the Post
+            $post->save();
         return redirect()->route('posts.index')->withSuccess('Data Updated Successfully');
+
     }
 
     /**
