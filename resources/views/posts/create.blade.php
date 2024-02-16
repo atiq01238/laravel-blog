@@ -33,58 +33,52 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="CategoryName">Select Category</label>
-                                        <select class="form-control" name="category_id" onchange="this.form.submit()">
+                                        <select class="form-control" id="categorySelect" name="category_id" value="{{ old('category_id') }}">
                                             <option selected disabled>Select Category</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" {{ $selectedCategory == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->name }}
-                                                </option>
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="SubCategoryName">Select SubCategory</label>
-                                        <select class="form-control" name="subcategory_id">
+                                        <select class="form-control" id="subcategorySelect" name="subcategory_id" value="{{ old('subcategory_id') }}">
                                             <option selected disabled>Select SubCategory</option>
-
-                                            <!-- Loop through subcategories and display only those belonging to the selected category -->
                                             @foreach ($subcategories as $subcategory)
-                                                @if ($selectedCategory == $subcategory->category_id)
-                                                    <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
-                                                @endif
+                                                <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="PostName" class="form-label">Post Name</label>
-                                        <input type="text" class="form-control" id="name" name="post_name"
-                                            placeholder="Name" value="{{ old('post_name') }}">
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            placeholder="Name" value="{{ old('name') }}">
                                     </div>
-                                    @if ($errors->has('post_name'))
-                                    <span class="text-danger">{{ $errors->first('post_name') }}</span>
+                                    @if ($errors->has('name'))
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
                                     @endif
                                     <div class="form-floating">
                                         <label for="floatingTextarea">Short Detail</label>
-                                        <textarea class="form-control" placeholder="Leave a comment here" name="s_detail" id="floatingTextarea"  style="height: 70px"></textarea>
+                                        <textarea class="form-control" placeholder="Leave a comment here" name="short_description" id="floatingTextarea"  style="height: 70px"></textarea>
 
                                     </div>
-                                    @if ($errors->has('s_detail'))
-                                    <span class="text-danger">{{ $errors->first('s_detail') }}</span>
+                                    @if ($errors->has('short_description'))
+                                    <span class="text-danger">{{ $errors->first('short_description') }}</span>
                                     @endif
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Long Detail</label>
-                                        <textarea class="form-control" name="l_detail" id="exampleFormControlTextarea1" rows="5"></textarea>
+                                        <textarea class="form-control" name="long_description" id="exampleFormControlTextarea1" rows="5"></textarea>
                                     </div>
-                                    @if ($errors->has('l_detail'))
-                                    <span class="text-danger">{{ $errors->first('l_detail') }}</span>
+                                    @if ($errors->has('long_description'))
+                                    <span class="text-danger">{{ $errors->first('long_description') }}</span>
                                     @endif
                                     <div class="mb-3">
                                         <label for="PostAutherName" class="form-label">Auther Name</label>
-                                        <input type="text" class="form-control" id="a_name" name="a_name"
-                                            placeholder="AutherName" value="{{ old('a_name') }}">
+                                        <input type="text" class="form-control" id="auther" name="auther"
+                                            placeholder="AutherName" value="{{ old('auther') }}">
                                     </div>
-                                    @if ($errors->has('a_name'))
-                                    <span class="text-danger">{{ $errors->first('a_name') }}</span>
+                                    @if ($errors->has('auther'))
+                                    <span class="text-danger">{{ $errors->first('auther') }}</span>
                                     @endif
                                     <div class="form-group">
                                         <label for="exampleInputFile">File input</label>
@@ -115,4 +109,5 @@
         </section>
         <!-- /.content -->
     </div>
+
 @stop

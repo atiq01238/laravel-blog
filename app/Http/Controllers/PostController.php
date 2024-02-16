@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::get();
+        $posts = Post::with('category','sub_category')->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -26,10 +26,7 @@ class PostController extends Controller
         $categories = Categories::all();
         $subcategories = SubCategory::all();
 
-        // Retrieve selected category from the form submission
-        $selectedCategory = request()->input('category_id');
-
-        return view('posts.create', compact('categories', 'subcategories', 'selectedCategory'));
+        return view('posts.create', compact('categories', 'subcategories'));
     }
 
     /**
@@ -39,27 +36,23 @@ class PostController extends Controller
     {
             // Validate the request data
             $request->validate([
-                'category_name' => 'required',
-                'subcategory_name' => 'required',
-                'post_name' => 'required',
-                's_detail' => 'required',
-                'l_detail' => 'required',
-                'a_name' => 'required',
+                'category_id' => 'required',
+                'subcategory_id' => 'required',
+                'name' => 'required',
+                'short_description' => 'required',
+                'long_description' => 'required',
+                'auther' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
-            // Create a new Post instance
             $post = new Post;
+            $post->name = $request->input('name');
+            $post->auther = $request->input('auther');
+            $post->short_description = $request->input('short_description');
+            $post->long_description = $request->input('long_description');
+            $post->category_id = $request->input('category_id');
+            $post->subcategory_id = $request->input('subcategory_id');
 
-            // Set values for non-file fields
-            $post->category_name = $request->input('category_name');
-            $post->subcategory_name = $request->input('subcategory_name');
-            $post->post_name = $request->input('post_name');
-            $post->s_detail = $request->input('s_detail');
-            $post->l_detail = $request->input('l_detail');
-            $post->a_name = $request->input('a_name');
-
-            // Handle file upload
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time().'.'.$image->getClientOriginalExtension();
@@ -67,9 +60,7 @@ class PostController extends Controller
                 $post->image = 'uploads/'.$imageName;
             }
 
-            // Save the Post
             $post->save();
-
             // Redirect back with a success message or handle as needed
             return redirect()->route('posts.index')->with('success', 'Post created successfully.');
 

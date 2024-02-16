@@ -51,29 +51,56 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($posts as $post)
-                                        <tr class="">
+                                            <tr class="">
                                                 <td>{{ $post['id'] }}</td>
-                                                <td>{{ $post['category_name'] }}</td>
-                                                <td>{{ $post['subcategory_name'] }}</td>
-                                                <td>{{ $post['post_name'] }}</td>
-                                                <td>{{ $post['s_detail'] }}</td>
-                                                <td>{{ $post['l_detail'] }}</td>
-                                                <td>{{ $post['a_name'] }}</td>
+                                                <td>{{ $post['category']->name ?? '' }}</td>
+                                                <td>{{ $post['sub_category']->name ?? '' }}</td>
+                                                <td>{{ $post['name'] ?? '' }}</td>
+                                                <td>{{ $post['short_description'] }}</td>
+                                                <td>{{ $post['long_description'] }}</td>
+                                                <td>{{ $post['auther'] }}</td>
                                                 <td>
-                                                    <img src="{{ asset('uploads' . $post->image) }}"
-                                                        class="rounded-circle" width="50px" height="50px" alt="">
+                                                    <img src="{{ asset($post->image) }}" class="rounded-circle"
+                                                        width="50px" height="50px" alt="">
                                                 </td>
 
                                                 <td>
                                                     <div class="btn-group">
                                                         <a href="{{ Route('posts.edit', $post->id) }}"
                                                             class="btn btn-info">Edit</a>
-                                                        <form action="{{ route('posts.destroy', $post->id) }}"
+                                                        <form id="deleteForm"
+                                                            action="{{ route('posts.destroy', $post->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+                                                            <button type="button" class="btn btn-danger"
+                                                                style="margin-left: 10px;"
+                                                                onclick="deletePost()">Delete</button>
                                                         </form>
+
+                                                        <script>
+                                                            function deletePost() {
+                                                                if (confirm("Are you sure you want to delete this post?")) {
+                                                                    var xhr = new XMLHttpRequest();
+                                                                    xhr.open('POST', document.getElementById('deleteForm').action, true);
+                                                                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                                                    xhr.setRequestHeader('X-CSRF-TOKEN', document.getElementsByName('_token')[0].value);
+
+                                                                    xhr.onload = function() {
+                                                                        if (xhr.status === 200) {
+                                                                            // Handle success, e.g., update the UI or redirect
+                                                                            window.location.href = "{{ route('posts.index') }}";
+                                                                        } else {
+                                                                            // Handle errors, e.g., display an error message
+                                                                            console.error(xhr.responseText);
+                                                                        }
+                                                                    };
+
+                                                                    xhr.send();
+                                                                }
+                                                            }
+                                                        </script>
+
                                                     </div>
                                                 </td>
                                             </tr>
